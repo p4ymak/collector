@@ -56,9 +56,10 @@ fn walkdir(
 }
 
 fn main() {
+    println!("\n>>>> The Collector <<<<");
+
     let args: Vec<_> = env::args().collect();
     let source_dir = &args[1];
-
     let ftypes = vec![
         ".obj", ".fbx", ".blend", ".glb", ".gltf", ".ply", ".abc", ".stl",
     ];
@@ -72,7 +73,6 @@ fn main() {
         &mut counter,
         &mut size_total,
     );
-    println!("\n>>>> The Collector <<<<");
 
     for (i, ftype) in ftypes.iter().enumerate() {
         println!("{:7} {}", ftype, counter[i])
