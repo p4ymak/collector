@@ -26,15 +26,19 @@ fn walkdir(
                 .to_string_lossy()
                 .to_string()
                 .to_lowercase();
-            for (i, ftype) in ftypes.iter().enumerate() {
-                if file_name.ends_with(ftype) {
-                    //println!("Found {:?}", file_name);
-                    counter[i] += 1;
-                    if !found_file {
-                        collected_dirs.push(cur_dir.to_string());
-                        *size_total += dir::get_size(cur_dir).unwrap();
+            if file_name.ends_with(".gitignore") {
+                found_file = true;
+            } else {
+                for (i, ftype) in ftypes.iter().enumerate() {
+                    if file_name.ends_with(ftype) {
+                        //println!("Found {:?}", file_name);
+                        counter[i] += 1;
+                        if !found_file {
+                            collected_dirs.push(cur_dir.to_string());
+                            *size_total += dir::get_size(cur_dir).unwrap();
+                        }
+                        found_file = true;
                     }
-                    found_file = true;
                 }
             }
         } else if metadata.is_dir() {
