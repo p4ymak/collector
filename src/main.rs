@@ -90,7 +90,7 @@ fn main() {
         options.copy_inside = true;
 
         for dir in collected_dirs.iter() {
-            let time_stamp = "_".to_string() + &format!("{:?}", SystemTime::now())[42..51];
+            let time_stamp = "_".to_string() + &format!("{:?}", SystemTime::now())[42..49];
 
             let new_name = Path::new(dir)
                 .file_name()
@@ -100,7 +100,8 @@ fn main() {
                 + &time_stamp;
             let target_path = Path::new(&target_dir).join(new_name);
             fs::create_dir_all(&target_path).unwrap();
-            fs_extra::copy_items(&vec![dir], target_path, &options).unwrap();
+            fs_extra::copy_items(&vec![dir], &target_path, &options).unwrap();
+            println!("Copied: {:?}", target_path);
         }
 
         println!("Copied {} directories.", collected_dirs.len());
